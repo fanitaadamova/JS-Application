@@ -28,7 +28,8 @@ async function onLogout() {
   localStorage.clear();
   document.querySelector('#logout').style.display = 'none'
   document.querySelector("#addForm .add").disabled = true;
-  document.querySelector("#guest").style.display = "block";
+  document.querySelector("#guest").style.display = "inline-block";
+  document.querySelector(".email span").textContent = "guest";
 }
 //------------------------------
 
@@ -131,7 +132,7 @@ async function loadData() {
 }
 
 function createCatch(data) {
-    console.log(data);
+  console.log(data);
   const isDisabled = userData && data._ownerId === userData.id ? false : true;
   const catches = createElement(
     "div",
