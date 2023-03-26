@@ -18,16 +18,17 @@ const detailsTemplate = (book, onDelete) => html`
 
         <!-- Bonus -->
         <!-- Like button ( Only for logged-in users, which is not creators of the current book ) -->
-        <!--<a class="button" href="#">Like</a>-->
+        <a class="button" href="#">Like</a>
 
-        <!-- ( for Guests and Users )  -->
-        <!--<div class="likes">-->
-        <!--    <img class="hearts" src="/images/heart.png">-->
-        <!--   <span id="total-likes">Likes: 0</span>-->
-        <!--</div>-->
-        <!-- Bonus -->
+        
         
         ` : null}
+        
+        <!-- ( for Guests and Users )  -->
+        <div class="likes">
+        <img class="hearts" src="/images/heart.png">
+        <span id="total-likes">Likes: 0</span>
+       </div>
 
     </div>
 </div>
@@ -58,3 +59,4 @@ export async function detailsPage(ctx) {
     }
   }
 }
+

@@ -5,9 +5,10 @@ import { get, post, put, del } from "./api.js";
 const endpoins = {
     catalog: '/data/books?sortBy=_createdOn%20desc',
     byUserId: userId => `/data/books?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
+    create: '/data/books',
     byId: '/data/books/'
 }
-//така взимаме всички оферти
+//така взимаме всички книги
 export async function getAllBooks() {
     return get(endpoins.catalog);
 }
@@ -17,7 +18,7 @@ export async function getById(id) {
 }
 
 export async function createBook(data) {
-    return post(endpoins.catalog, data);
+    return post(endpoins.create, data);
 }
 
 export async function updateBook(id, data) {
@@ -30,5 +31,21 @@ export async function deleteBook(id) {
 
 
 export async function getMyBooks(userId) {
-    return get(endpoins.byUserId(userId));
+
+    return get(`/data/books?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`);
 }
+
+
+//Бонус точки
+
+export function getAllLikesForBookById(id) {
+    return get(`/data/likes?where=id%3D%22${id}%22&distinct=_ownerId&count`);
+}
+
+export function getLikeForUserById(id, userId) {
+    return get(`/data/likes?where=id%3D%22${id}%22%20and%20_ownerId%3D%22${userId}%22&count`);
+}
+
+export function addLike(id) {
+    return post('/data/likes', { id });
+} 
