@@ -1,5 +1,6 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
 import { createAlbum } from "../data/albums.js";
+
 import { createSubmitHandler } from "../util.js";
 
 const createTemplate = (onCreate) => html `
@@ -20,10 +21,8 @@ const createTemplate = (onCreate) => html `
 
 
 
-
 export function createPage(ctx) {
     ctx.render(createTemplate(createSubmitHandler(onCreate)));
-
     //създаваме функция, която подаваме като параметър на темплейта и закачаме eventListener
     //деструктурираме дейтата, за да извадим своествата, които ни трябват и които ще изпратим в заявката след Edit
     async function onCreate({
@@ -37,7 +36,6 @@ export function createPage(ctx) {
     }
     ) {
         if (singer === '' || album === '' || imageUrl === '' || release === ''|| label === '' || sales === '') {
-
             return alert('All fields are requared!')
         }
 
@@ -49,9 +47,13 @@ export function createPage(ctx) {
             label, 
             sales    
         })
-
+        form.reset();
         ctx.page.redirect('/catalog');
 
     }
+
+
+
+
 
 }

@@ -56,7 +56,7 @@ export async function editPage(ctx) {
         sales
           
        })
-
+          
        ctx.page.redirect('/catalog/' + id);
       
    }

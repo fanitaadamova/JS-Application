@@ -20,17 +20,12 @@ const detailsTemplate = (album, onDelete) => html `
     <p><strong>Sales:</strong><span id="details-sales">${album.sales}</span></p>
   </div>
   <div id="likes">Likes: <span id="likes-count">0</span></div>
-
-
-${album.canEdit ? html`
-<div id="action-buttons">
-<a href="" id="like-btn">Like</a>
-<a href="/catalog/${album._id}/edit" id="edit-btn">Edit</a>
-<a @click=${onDelete}href="javascript:void(0)" id="delete-btn">Delete</a>
-</div>
-
-` : null}
-
+          <div id="action-buttons">
+                   ${album.canEdit ? html`                
+                   <a href="/catalog/${album._id}/edit" id="edit-btn">Edit</a>
+                   <a @click=${onDelete}href="javascript:void(0)" id="delete-btn">Delete</a>
+                   ` : null}
+           </div>
 </div>
 </section>
 `
