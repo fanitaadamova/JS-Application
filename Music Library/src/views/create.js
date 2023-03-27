@@ -47,7 +47,7 @@ export function createPage(ctx) {
             label, 
             sales    
         })
-        form.reset();
+       // form.reset();
         ctx.page.redirect('/catalog');
 
     }

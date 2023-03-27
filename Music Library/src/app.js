@@ -24,11 +24,12 @@ page('index.html', '/')
 page('/', homePage);
 page('/catalog', catalogPage);
 page('/catalog/:id', detailsPage);
-page('/catalog/:id/edit', editPage);
 page('/create', createPage);
+page('/catalog/:id/edit', editPage);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/logout', logoutAction);
+
 
 
 page.start();
