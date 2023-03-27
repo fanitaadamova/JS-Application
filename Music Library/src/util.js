@@ -1,14 +1,14 @@
 const itemName = 'userData';
-
+//Важно - тук е sessionStorage
 export function getUserData() {
-    return JSON.parse(localStorage.getItem(itemName));
+    return JSON.parse(sessionStorage.getItem(itemName));
 }
 export function setUserData(data) {
-    return localStorage.setItem(itemName, JSON.stringify(data));
+    return sessionStorage.setItem(itemName, JSON.stringify(data));
 }
 
 export function clearUserData() {
-    localStorage.removeItem(itemName);
+    sessionStorage.removeItem(itemName);
 }
 
 export function createSubmitHandler(callback) {

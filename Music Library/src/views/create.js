@@ -3,7 +3,7 @@ import { createAlbum } from "../data/albums.js";
 
 import { createSubmitHandler } from "../util.js";
 
-const createTemplate = (onCreate) => html `
+const createTemplate = (onCreate) => html`
 <section id="create">
     <div class="form">
         <h2>Add Album</h2>
@@ -27,15 +27,14 @@ export function createPage(ctx) {
     //деструктурираме дейтата, за да извадим своествата, които ни трябват и които ще изпратим в заявката след Edit
     async function onCreate({
         singer,
-        album, 
-        imageUrl, 
-        release, 
-        label, 
+        album,
+        imageUrl,
+        release,
+        label,
         sales
-              
-    }
-    ) {
-        if (singer === '' || album === '' || imageUrl === '' || release === ''|| label === '' || sales === '') {
+
+    }) {
+        if (singer === '' || album === '' || imageUrl === '' || release === '' || label === '' || sales === '') {
             return alert('All fields are requared!')
         }
 
@@ -45,9 +44,9 @@ export function createPage(ctx) {
             imageUrl, 
             release, 
             label, 
-            sales    
-        })
-       // form.reset();
+            sales
+          } )
+
         ctx.page.redirect('/catalog');
 
     }

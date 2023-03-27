@@ -8,7 +8,7 @@ const detailsTemplate = (album, onDelete) => html `
 <div id="details-wrapper">
   <p id="details-title">Album Details</p>
   <div id="img-wrapper">
-    <img src="${album.imageUrl}" alt="${album.imageUrl}" />
+    <img src="${album.imageUrl}" alt="example1" />
   </div>
   <div id="info-wrapper">
     <p><strong>Band:</strong><span id="details-singer">${album.singer}</span></p>
