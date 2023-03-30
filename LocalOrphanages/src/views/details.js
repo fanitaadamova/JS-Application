@@ -1,9 +1,10 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
 import { deletePost, getById } from "../data/posts.js";
+import { donate, getApplications, getUserApplication } from "../data/applications.js";
 import { getUserData } from "../util.js";
 
 //TODO replace with actual view
-const detailsTemplate = (post, onDelete) => html `
+const detailsTemplate = (post, onDelete, onDonate) => html `
 <section id="details-page">
 <h1 class="title">Post Details</h1>
 
@@ -17,18 +18,22 @@ const detailsTemplate = (post, onDelete) => html `
             <p class="post-description">Description: ${post.description}</p>
             <p class="post-address">Address: ${post.address}</p>
             <p class="post-number">Phone number: ${post.phone}</p>
-            <p class="donate-Item">Donate Materials: 0</p>
+            <p class="donate-Item">Donate Materials: ${ post.applications}</p>
 
             <!--Edit and Delete are only for creator-->
-           
-            ${post.canEdit ? html`
-            <div class="btns">
-                <a href="/catalog/${post._id}/edit" class="edit-btn btn">Edit</a>
-                <a @click=${onDelete}href="javascript:void(0) class="delete-btn btn">Delete</a>
 
-                <!--Bonus - Only for logged-in users ( not authors )-->
-                <a href="#" class="donate-btn btn">Donate</a>
-            </div>` : null}
+
+
+
+            ${post.canEdit || post.canDonate ? html`
+            <div class="btns">
+                  ${post.canEdit ? html`
+                  <a href="/catalog/${post._id}/edit" class="edit-btn btn">Edit</a>
+                  <a @click=${onDelete}href="javascript:void(0) class="delete-btn btn">Delete</a>` : null}
+
+                  ${post.canDonate ? html`<a @click=${onDonate}href="javascript:void(0)" class="donate-btn btn">Donate</a>` : null}
+          
+             </div>` : null}
 
 
         </div>
@@ -43,22 +48,44 @@ const detailsTemplate = (post, onDelete) => html `
 
 export async function detailsPage(ctx) {
   const id = ctx.params.id;
-  const post = await getById(id);
+  //Правим Promise all
+  const requests = [
+    getById(id),
+    getApplications(id)
+  ]
 
   const userData = getUserData();
-  //post.canEdit - така създаваме променлива, която казва дали може да се edit-ва оферта, ако е owner-da и да се появи бутон по горе в HTML-a 
-  if (userData && userData._id == post._ownerId) {
-    post.canEdit = true;
+
+  if (userData) {
+    requests.push(getUserApplication(id, userData._id));
   }
-  ctx.render(detailsTemplate(post, onDelete));
+
+  const [post, applications, hasDonated] = await Promise.all(requests)
+  post.applications = applications;
+  if (userData) {
+    //връща true or false- може или не моде да едитва
+    post.canEdit = userData._id == post._ownerId;
+    post.canDonate = hasDonated == 0;
+
+  }
+
+
+
+  ctx.render(detailsTemplate(post, onDelete, onDonate));
 
   async function onDelete() {
     const choice = confirm('Are you sure?');
 
     if (choice) {
       await deletePost(id);
-      ctx.page.redirect('/catalog');
+      ctx.page.redirect('/');
     }
   }
-}
 
+  async function onDonate() {
+       await donate(id);
+       ctx.page.redirect('/catalog/' + id);
+  }
+
+
+}
