@@ -17,7 +17,8 @@ const createTemplate = (onCreate) => html`
             <button type="submit">post</button>
         </form>
     </div>
-</section>`
+</section>
+`;
 
 
 
@@ -47,12 +48,9 @@ export function createPage(ctx) {
             sales
           } )
 
-        ctx.page.redirect('/catalog');
+        ctx.page.redirect('/');
 
     }
-
-
-
 
 
 }

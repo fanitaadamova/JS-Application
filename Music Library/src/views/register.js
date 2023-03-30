@@ -33,7 +33,7 @@ export function registerPage(ctx) {
         await register(email, password);
         form.reset();
         //TODO used redirect location from requarements
-        ctx.page.redirect('/catalog');
+        ctx.page.redirect('/');
     }
 
 

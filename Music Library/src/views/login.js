@@ -23,10 +23,14 @@ export function loginPage(ctx) {
 
     //TODO change user object based on requarements
     async function onLogin({ email, password }, form) {
+      if (email == '' || password == '') {
+        return alert('All fields are requared')
+    }
+
         await login(email, password);
         form.reset();
         //TODO used redirect location from requarements
-        ctx.page.redirect('/catalog');
+        ctx.page.redirect('/');
     }
 
 

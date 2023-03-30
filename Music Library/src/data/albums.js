@@ -1,6 +1,7 @@
-//Create , editing and deliting from catalog and rendering ofer by ofer
 
 import { get, post, put, del } from "./api.js";
+
+//Create , editing and deliting from catalog and rendering ofer by ofer
 //линковете ни са даден по условия- byId за offer details, edit and delete 
 const endpoins = {
     catalog: '/data/albums?sortBy=_createdOn%20desc',

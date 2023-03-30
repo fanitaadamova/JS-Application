@@ -21,10 +21,9 @@ export const layoutTemplate = (userData, content) => html`
 
 </nav>
 </header>
-<main id="site-content">
+<main >
 ${content}
-</main>
-`
+</main>`
 
 
 
